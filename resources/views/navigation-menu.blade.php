@@ -5,16 +5,38 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="flex-shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
+
+
+                    @if(Auth::user()->utype === 'admin')
+                    <a href="{{ route('admin.dashboard') }}">
                         <x-jet-application-mark class="block h-9 w-auto" />
                     </a>
+                    @else
+                    <a href="{{ route('user.dashboard') }}">
+                        <x-jet-application-mark class="block h-9 w-auto" />
+                    </a>
+                    @endif
+
+                    {{-- <a href="{{ route('dashboard') }}">
+                        <x-jet-application-mark class="block h-9 w-auto" />
+                    </a> --}}
+
                 </div>
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+                    {{-- <x-jet-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+                        {{ __('Dashboard') }}
+                    </x-jet-nav-link> --}}
+                    @if(Auth::user()->utype === 'admin')
+                    <x-jet-nav-link href="{{ route('admin.dashboard') }}" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-jet-nav-link>
+                    @else
+                    <x-jet-nav-link href="{{ route('user.dashboard') }}" :active="request()->routeIs('dashboard')">
+                        {{ __('Dashboard') }}
+                    </x-jet-nav-link>
+                    @endif
                 </div>
             </div>
 
@@ -95,10 +117,15 @@
                             <div class="block px-4 py-2 text-xs text-gray-400">
                                 {{ __('Manage Account') }}
                             </div>
-
-                            <x-jet-dropdown-link href="{{ route('profile.show') }}">
+                            @if(Auth::user()->utype === 'admin')
+                            <x-jet-dropdown-link href="{{ route('admin.profile.show') }}">
                                 {{ __('Profile') }}
                             </x-jet-dropdown-link>
+                            @else
+                            <x-jet-dropdown-link href="{{ route('user.profile.show') }}">
+                                {{ __('Profile') }}
+                            </x-jet-dropdown-link>
+                            @endif
 
                             @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
                                 <x-jet-dropdown-link href="{{ route('api-tokens.index') }}">
@@ -138,9 +165,18 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-jet-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+            {{-- <x-jet-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+                {{ __('Dashboard') }}
+            </x-jet-responsive-nav-link> --}}
+            @if(Auth::user()->utype === 'admin')
+            <x-jet-responsive-nav-link href="{{ route('admin.dashboard') }}" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-jet-responsive-nav-link>
+            @else
+            <x-jet-responsive-nav-link href="{{ route('user.dashboard') }}" :active="request()->routeIs('dashboard')">
+                {{ __('Dashboard') }}
+            </x-jet-responsive-nav-link>
+            @endif
         </div>
 
         <!-- Responsive Settings Options -->
@@ -160,9 +196,15 @@
 
             <div class="mt-3 space-y-1">
                 <!-- Account Management -->
-                <x-jet-responsive-nav-link href="{{ route('profile.show') }}" :active="request()->routeIs('profile.show')">
+                   @if(Auth::user()->utype === 'admin')
+                <x-jet-responsive-nav-link href="{{ route('admin.profile.show') }}" :active="request()->routeIs('admin.profile.show')">
                     {{ __('Profile') }}
                 </x-jet-responsive-nav-link>
+                    @else
+                <x-jet-responsive-nav-link href="{{ route('user.profile.show') }}" :active="request()->routeIs('user.profile.show')">
+                    {{ __('Profile') }}
+                </x-jet-responsive-nav-link>
+                    @endif
 
                 @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
                     <x-jet-responsive-nav-link href="{{ route('api-tokens.index') }}" :active="request()->routeIs('api-tokens.index')">
