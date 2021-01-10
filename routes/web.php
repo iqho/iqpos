@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Livewire\Admin\AdminDashboardComponent;
+use App\Http\Livewire\Admin\ShowUser;
+use App\Http\Livewire\Admin\UpdateUser;
 use App\Http\Livewire\User\UserDashboardComponent;
 use Illuminate\Support\Facades\Route;
 use Laravel\Jetstream\Http\Controllers\Livewire\UserProfileController;
@@ -25,15 +27,16 @@ Route::get('/', function () {
 // })->name('dashboard');
 
 //Admin
-Route::middleware(['auth:sanctum', 'verified', 'authadmin'])->group(function () {
-    Route::get('/admin/dashboard', AdminDashboardComponent::class)->name('admin.dashboard');
-    Route::get('/admin/profile', [UserProfileController::class, 'show'])->name('admin.profile.show');
+Route::middleware(['auth:sanctum', 'verified', 'authadmin'])->prefix('admin')->name('admin.')->group(function () {
+    Route::get('/dashboard', AdminDashboardComponent::class)->name('dashboard');
+    Route::get('/profile', [UserProfileController::class, 'show'])->name('profile.show');
+    Route::get('/users', ShowUser::class)->name('users.show');
+    Route::get('/user/update', UpdateUser::class)->name('user.update');
+    //Route::get('/users', ShowUser::class)->name('users.show');
 });
 
 // User
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
-Route::get('/user/dashboard', UserDashboardComponent::class)->name('user.dashboard');
-Route::get('/user/profile', [UserProfileController::class, 'show'])->name('user.profile.show');
+    Route::get('/user/dashboard', UserDashboardComponent::class)->name('user.dashboard');
+    Route::get('/user/profile', [UserProfileController::class, 'show'])->name('user.profile.show');
 });
-
-
