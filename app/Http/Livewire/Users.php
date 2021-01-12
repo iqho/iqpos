@@ -1,17 +1,16 @@
 <?php
-
-namespace App\Http\Livewire\Admin;
-
-use App\Models\User;
+namespace App\Http\Livewire;
 use Livewire\Component;
-class ShowUser extends Component
+use App\Models\User;
+
+class Users extends Component
 {
     public $users, $name, $email, $user_id;
     public $updateMode = false;
     public function render()
     {
         $this->users = User::all();
-        return view('livewire.admin.show-user');
+        return view('livewire.users');
     }
     private function resetInputFields(){
         $this->name = '';

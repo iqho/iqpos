@@ -1,4 +1,3 @@
-<div>
 <!-- Modal -->
 <div wire:ignore.self class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -27,11 +26,9 @@
                 </form>
             </div>
             <div class="modal-footer">
-                {{-- <button type="button" wire:click.prevent="cancel()" class="btn btn-secondary" data-dismiss="modal">Close</button> --}}
+                <button type="button" wire:click.prevent="cancel()" class="btn btn-secondary" data-dismiss="modal">Close</button>
                 <button type="button" wire:click.prevent="update()" class="btn btn-primary" data-dismiss="modal">Save changes</button>
             </div>
        </div>
     </div>
-</div>
-
 </div>
