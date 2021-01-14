@@ -10,6 +10,8 @@ use Mediconesystems\LivewireDatatables\Http\Livewire\LivewireDatatable;
 class UserDatatables extends LivewireDatatable
 {
     public $model = User::class;
+    public $hideable = 'select';
+    public $exportable = true;
     public function columns()
     {
         return [
@@ -24,3 +26,4 @@ class UserDatatables extends LivewireDatatable
         ];
     }
 }
+
